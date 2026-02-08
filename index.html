@@ -3,62 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuestros 3 Años ❤️</title>
+    <title>3 años..ya? 💜</title>
     <style>
         :root {
-            --morado-negro: #1a0033;
             --rosa-fucsia: #ff00ff;
-            --rosa-brillo: #ff66d2;
             --morado-neon: #bc13fe;
-            --neon-glow: 0 0 10px var(--rosa-fucsia), 0 0 25px var(--rosa-fucsia);
-            --neon-border: 0 0 15px var(--morado-neon), inset 0 0 15px var(--morado-neon);
+            --neon-glow: 0 0 15px var(--rosa-fucsia);
         }
 
         body, html {
             margin: 0; padding: 0; height: 100%;
             overflow: hidden; font-family: 'Georgia', serif;
             background-color: #05000a;
-            box-sizing: border-box;
         }
 
-        /* --- MARCO EXTERIOR LUMINOSO --- */
+        /* --- MARCO EXTERIOR --- */
         body::before {
             content: "";
             position: fixed;
             top: 10px; left: 10px; right: 10px; bottom: 10px;
-            border: 4px solid var(--rosa-fucsia);
+            border: 3px solid var(--rosa-fucsia);
             border-radius: 30px;
-            box-shadow: var(--neon-border), 0 0 40px rgba(255, 0, 255, 0.2);
-            z-index: 100;
+            box-shadow: 0 0 20px var(--morado-neon), inset 0 0 15px var(--morado-neon);
+            z-index: 200;
             pointer-events: none;
         }
 
-        /* --- FONDO DE COLLAGE MEJORADO --- */
+        /* --- COLLAGE DE FONDO --- */
         .collage-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             display: flex; justify-content: space-around;
-            z-index: 1; opacity: 0.6;
-            filter: contrast(1.1) brightness(0.8);
-            pointer-events: none;
+            z-index: 1; opacity: 0.5;
+            filter: brightness(0.7);
         }
 
         .columna-fotos {
             display: flex; flex-direction: column;
-            will-change: transform;
             animation: caer var(--duracion, 30s) linear infinite;
         }
 
         .columna-fotos img {
-            width: 280px; 
-            margin: 40px 0;
-            border-radius: 20px; 
-            border: 6px solid var(--rosa-fucsia);
+            width: 280px; margin: 35px 0;
+            border-radius: 20px; border: 5px solid var(--rosa-fucsia);
             box-shadow: var(--neon-glow);
-            object-fit: cover;
-            aspect-ratio: 1 / 1;
-            /* Inclinación aleatoria para efecto collage real */
-            transform: rotate(var(--rotacion, 2deg));
+            aspect-ratio: 1/1; object-fit: cover;
+            transform: rotate(var(--rotacion, 0deg));
         }
 
         @keyframes caer {
@@ -66,68 +56,72 @@
             to { transform: translateY(0%); }
         }
 
-        /* --- CORAZONES NEÓN FLOTANTES --- */
-        .corazon {
-            position: fixed;
-            z-index: 5;
-            pointer-events: none;
-            animation: flotar 7s ease-in forwards;
-            filter: drop-shadow(0 0 8px var(--rosa-fucsia));
-            opacity: 0.8;
-        }
-
-        @keyframes flotar {
-            0% { transform: translateY(110vh) scale(0.5); opacity: 0; }
-            20% { opacity: 1; }
-            100% { transform: translateY(-20vh) scale(1.2) rotate(45deg); opacity: 0; }
-        }
-
-        /* --- INTERFAZ CENTRAL --- */
+        /* --- CONTENEDOR CENTRAL SEGURO --- */
         .interfaz {
             position: relative;
-            z-index: 110;
+            z-index: 150;
             display: flex;
             align-items: center;
             justify-content: center;
             height: 100vh;
+            padding: 20px;
         }
 
         .caja-mensaje {
-            background: rgba(10, 0, 20, 0.85);
-            padding: 50px 70px;
+            background: rgba(10, 0, 25, 0.9);
+            min-width: 420px;
+            min-height: 320px;
+            padding: 60px;
             border-radius: 40px;
+            border: 3px solid white;
+            box-shadow: 0 0 40px rgba(255, 0, 255, 0.3);
             backdrop-filter: blur(10px);
-            border: 3px solid white; /* Borde blanco brillante como la imagen */
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2), var(--neon-glow);
-            text-align: center;
-            display: flex;
+            display: inline-flex;
             flex-direction: column;
             align-items: center;
-            gap: 35px;
+            justify-content: center;
+            gap: 50px; 
+            transition: all 0.4s ease;
         }
 
         h2 { 
             color: white; 
-            font-size: 2.8rem; 
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            font-size: 3rem; /* Un poco más grande para resaltar el nuevo título */
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
             margin: 0;
+            text-align: center;
+            z-index: 10;
         }
 
         #btnSorpresa {
-            padding: 20px 60px;
-            font-size: 2rem;
+            padding: 20px 50px;
+            font-size: 1.8rem;
             font-weight: bold;
             color: white;
-            background: linear-gradient(to right, #d400ff, #ff0080);
+            background: linear-gradient(45deg, #d400ff, #ff0080);
             border: none;
             border-radius: 50px;
             cursor: pointer;
             box-shadow: 0 0 20px var(--rosa-fucsia);
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-origin: center center; 
+            z-index: 5;
         }
 
-        /* --- FLASH Y VIDEO --- */
+        /* --- CORAZONES --- */
+        .corazon {
+            position: fixed; z-index: 50; pointer-events: none;
+            animation: flotar 6s linear forwards;
+            filter: drop-shadow(0 0 5px var(--rosa-fucsia));
+        }
+
+        @keyframes flotar {
+            0% { transform: translateY(110vh) scale(0.5); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- VIDEO Y FLASH --- */
         #resplandor {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: white; z-index: 1000; opacity: 0; pointer-events: none;
@@ -140,12 +134,7 @@
             z-index: 500; justify-content: center; align-items: center;
         }
 
-        video { 
-            width: 80%; 
-            border-radius: 25px; 
-            border: 4px solid var(--rosa-fucsia);
-            box-shadow: var(--neon-glow);
-        }
+        video { width: 85%; border-radius: 20px; border: 4px solid var(--rosa-fucsia); }
     </style>
 </head>
 <body>
@@ -154,6 +143,68 @@
 
     <div class="collage-container">
         <div class="columna-fotos" style="--duracion: 35s;">
-            <img src="foto1.jpeg" style="--rotacion: -3deg;"><img src="foto2.jpeg" style="--rotacion: 2deg;">
-            <img src="foto3.jpeg" style="--rotacion: -1deg;"><img src="foto4.jpeg" style="--rotacion: 4deg;">
-            <img src="foto1.jpeg" style="--rotacion: -3deg;"><img src="foto2.jpeg" style="--rotacion: 2deg;">
+            <img src="foto1.jpeg" style="--rotacion: -2deg;"><img src="foto2.jpeg" style="--rotacion: 3deg;">
+            <img src="foto3.jpeg" style="--rotacion: -1deg;"><img src="foto4.jpeg" style="--rotacion: 2deg;">
+            <img src="foto1.jpeg"><img src="foto2.jpeg">
+        </div>
+        <div class="columna-fotos" style="--duracion: 25s; margin-top: 50px;">
+            <img src="foto5.jpeg" style="--rotacion: 2deg;"><img src="foto6.jpeg" style="--rotacion: -3deg;">
+            <img src="foto7.jpeg" style="--rotacion: 1deg;"><img src="foto2.jpeg" style="--rotacion: -2deg;">
+            <img src="foto5.jpeg"><img src="foto6.jpeg">
+        </div>
+        <div class="columna-fotos" style="--duracion: 45s;">
+            <img src="foto3.jpeg" style="--rotacion: 1deg;"><img src="foto7.jpeg" style="--rotacion: -2deg;">
+            <img src="foto4.jpeg" style="--rotacion: 3deg;"><img src="foto1.jpeg" style="--rotacion: -1deg;">
+            <img src="foto3.jpeg"><img src="foto7.jpeg">
+        </div>
+    </div>
+
+    <div class="interfaz">
+        <div class="caja-mensaje">
+            <h2 id="frase">3 años..ya?💜</h2>
+            <button id="btnSorpresa">¿De verdad?</button>
+        </div>
+    </div>
+
+    <div id="pantalla-video">
+        <video id="videoRegalo" controls>
+            <source src="tu-video.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <script>
+        setInterval(() => {
+            const c = document.createElement('div');
+            c.classList.add('corazon');
+            c.innerHTML = ['💜', '💖', '✨'][Math.floor(Math.random()*3)];
+            c.style.left = Math.random() * 100 + 'vw';
+            document.body.appendChild(c);
+            setTimeout(() => c.remove(), 6000);
+        }, 500);
+
+        let contador = 0;
+        const boton = document.getElementById('btnSorpresa');
+        const caja = document.querySelector('.caja-mensaje');
+        const video = document.getElementById('videoRegalo');
+
+        boton.addEventListener('click', () => {
+            contador++;
+            let escala = 1 + (contador * 0.4);
+            boton.style.transform = `scale(${escala})`;
+            caja.style.padding = `${60 + (contador * 15)}px`;
+
+            if (contador >= 5) {
+                document.getElementById('resplandor').style.opacity = '1';
+                setTimeout(() => {
+                    document.querySelector('.interfaz').style.display = 'none';
+                    document.getElementById('pantalla-video').style.display = 'flex';
+                    setTimeout(() => {
+                        document.getElementById('resplandor').style.opacity = '0';
+                        video.play();
+                    }, 400);
+                }, 300);
+            }
+        });
+    </script>
+</body>
+</html>
