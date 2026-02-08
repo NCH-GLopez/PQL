@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3 años...ya? 💜</title>
+    <title>3 años..ya?💜</title>
     <style>
         :root {
             --morado-negro: #0d001a;
             --rosa-fucsia: #ff007f;
             --rosa-brillo: #ff66b2;
+            --morado-corazon: #9d50bb;
         }
 
         body, html {
@@ -17,87 +18,104 @@
             background-color: var(--morado-negro);
         }
 
-        /* --- COLLAGE FONDO --- */
+        /* --- COLLAGE INDEPENDIENTE --- */
         .collage-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             display: flex; justify-content: space-around;
-            z-index: 1; opacity: 0.3;
-            filter: hue-rotate(280deg) brightness(0.5);
+            z-index: 1; opacity: 0.4;
+            filter: hue-rotate(280deg) brightness(0.6);
+            pointer-events: none; /* Para que no interfiera con los clics */
         }
 
         .columna-fotos {
             display: flex; flex-direction: column;
-            animation: caer 35s linear infinite;
+            will-change: transform; /* Optimización para que no parpadee */
+            animation: caer var(--duracion, 30s) linear infinite;
         }
 
         .columna-fotos img {
-            width: 150px; margin: 15px 0;
-            border-radius: 10px; border: 2px solid var(--rosa-fucsia);
+            width: 250px; 
+            margin: 25px 0;
+            border-radius: 20px; 
+            border: 4px solid var(--rosa-fucsia);
+            box-shadow: 0 0 20px var(--rosa-fucsia);
+            object-fit: cover;
+            aspect-ratio: 1 / 1;
         }
 
         @keyframes caer {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(0%); }
+            from { transform: translateY(-50%); }
+            to { transform: translateY(0%); }
         }
 
-        /* --- ESTRUCTURA DE LA INTERFAZ --- */
+        /* --- CORAZONES --- */
+        .corazon {
+            position: fixed;
+            color: var(--morado-corazon);
+            font-size: 20px;
+            z-index: 5;
+            pointer-events: none;
+            animation: flotar 6s linear forwards;
+        }
+
+        @keyframes flotar {
+            0% { transform: translateY(105vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-15vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- INTERFAZ --- */
         .interfaz {
             position: relative;
             z-index: 10;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center; /* Centra el contenido verticalmente */
+            justify-content: center;
             height: 100vh;
-            text-align: center;
-            padding: 20px;
         }
 
-        /* Contenedor específico para frase y botón */
-        .contenido-central {
+        .caja-mensaje {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 50px;
+            border-radius: 35px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 40px; /* Espacio fijo entre frase y botón */
+            gap: 40px;
         }
 
         h2 { 
             color: white; 
-            font-size: 2.2rem; 
+            font-size: 2.5rem; 
             text-shadow: 0 0 15px var(--rosa-fucsia);
-            margin: 0; /* Quitamos márgenes para controlar el gap */
-            transition: transform 0.3s ease;
+            margin: 0;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         #btnSorpresa {
-            padding: 20px 40px;
-            font-size: 1.2rem;
+            padding: 25px 60px;
+            font-size: 1.4rem;
             font-weight: bold;
             color: white;
-            background: linear-gradient(45deg, #4b0082, var(--rosa-fucsia));
-            border: 3px solid var(--rosa-brillo);
+            background: linear-gradient(45deg, #6a11cb, var(--rosa-fucsia));
+            border: none;
             border-radius: 100px;
             cursor: pointer;
-            box-shadow: 0 0 20px rgba(255, 0, 127, 0.5);
-            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            transform-origin: center top; /* Crece hacia abajo para no tapar lo de arriba */
-        }
-
-        .animacion-latido {
-            animation: pulso var(--velocidad, 1.5s) infinite;
-        }
-
-        @keyframes pulso {
-            0% { transform: scale(var(--escala, 1)); }
-            50% { transform: scale(calc(var(--escala, 1) * 1.05)); }
-            100% { transform: scale(var(--escala, 1)); }
+            box-shadow: 0 10px 40px rgba(255, 0, 127, 0.5);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* Quitamos la animación de CSS para controlarla por JS sin reiniciar nada */
         }
 
         /* --- FLASH Y VIDEO --- */
         #resplandor {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: white; z-index: 1000; opacity: 0; pointer-events: none;
+            transition: opacity 0.4s ease;
         }
 
         #pantalla-video {
@@ -106,10 +124,7 @@
             z-index: 500; justify-content: center; align-items: center;
         }
 
-        video { 
-            width: 90%; max-width: 800px; border-radius: 15px;
-            border: 3px solid var(--rosa-fucsia);
-        }
+        video { width: 90%; max-width: 850px; border-radius: 20px; box-shadow: 0 0 50px var(--rosa-fucsia); }
     </style>
 </head>
 <body>
@@ -117,14 +132,21 @@
     <div id="resplandor"></div>
 
     <div class="collage-container">
-        <div class="columna-fotos"><img src="foto1.jpeg"><img src="foto2.jpeg"><img src="foto3.jpeg"><img src="foto1.jpeg"></div>
-        <div class="columna-fotos" style="animation-duration: 20s;"><img src="foto4.jpeg"><img src="foto5.jpeg"><img src="foto6.jpeg"><img src="foto4.jpeg"></div>
+        <div class="columna-fotos" style="--duracion: 35s;">
+            <img src="foto1.jpeg"><img src="foto2.jpeg"><img src="foto3.jpeg"><img src="foto4.jpeg"><img src="foto1.jpeg"><img src="foto2.jpeg">
+        </div>
+        <div class="columna-fotos" style="--duracion: 25s; margin-top: 80px;">
+            <img src="foto5.jpeg"><img src="foto6.jpeg"><img src="foto7.jpeg"><img src="foto2.jpeg"><img src="foto5.jpeg"><img src="foto6.jpeg">
+        </div>
+        <div class="columna-fotos" style="--duracion: 45s;">
+            <img src="foto3.jpeg"><img src="foto7.jpeg"><img src="foto4.jpeg"><img src="foto1.jpeg"><img src="foto3.jpeg"><img src="foto7.jpeg">
+        </div>
     </div>
 
     <div class="interfaz">
-        <div class="contenido-central">
+        <div class="caja-mensaje">
             <h2 id="frase">¿Quieres ver tu sorpresa?</h2>
-            <button id="btnSorpresa" class="animacion-latido">¿De verdad?</button>
+            <button id="btnSorpresa">¿De verdad?</button>
         </div>
     </div>
 
@@ -135,31 +157,50 @@
     </div>
 
     <script>
+        // Corazones constantes
+        setInterval(() => {
+            const c = document.createElement('div');
+            c.classList.add('corazon');
+            c.innerHTML = '💜';
+            c.style.left = Math.random() * 100 + 'vw';
+            document.body.appendChild(c);
+            setTimeout(() => c.remove(), 6000);
+        }, 400);
+
         let contador = 0;
         const boton = document.getElementById('btnSorpresa');
         const frase = document.getElementById('frase');
         const resplandor = document.getElementById('resplandor');
-        const interfaz = document.querySelector('.interfaz');
         const pantallaVideo = document.getElementById('pantalla-video');
         const video = document.getElementById('videoRegalo');
+
+        // Función de latido manual por JS para no resetear animaciones de CSS
+        function latir() {
+            if (contador < 5) {
+                let escalaBase = 1 + (contador * 0.4);
+                let latido = escalaBase * 1.1;
+                boton.style.transform = `scale(${latido})`;
+                setTimeout(() => {
+                    boton.style.transform = `scale(${escalaBase})`;
+                }, 200);
+            }
+        }
+        let bucleLatido = setInterval(latir, 1500);
 
         boton.addEventListener('click', () => {
             contador++;
             
-            let nuevaEscala = 1 + (contador * 0.4);
-            let nuevaVelocidad = 1.5 - (contador * 0.3);
-            
-            // Aplicamos escala
-            boton.style.setProperty('--escala', nuevaEscala);
-            boton.style.setProperty('--velocidad', Math.max(nuevaVelocidad, 0.1) + 's');
+            // Ajustar velocidad del latido
+            clearInterval(bucleLatido);
+            bucleLatido = setInterval(latir, Math.max(1500 - (contador * 300), 300));
 
-            // Movemos la frase un poco hacia arriba proporcionalmente para dejar espacio
-            frase.style.transform = `translateY(-${contador * 20}px)`;
+            // Mover frase
+            frase.style.transform = `translateY(-${contador * 30}px)`;
 
             if (contador >= 5) {
                 resplandor.style.opacity = '1';
                 setTimeout(() => {
-                    interfaz.style.display = 'none';
+                    document.querySelector('.interfaz').style.display = 'none';
                     pantallaVideo.style.display = 'flex';
                     setTimeout(() => {
                         resplandor.style.opacity = '0';
