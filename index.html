@@ -6,41 +6,40 @@
     <title>Nuestros 3 Años ❤️</title>
     <style>
         :root {
-            --morado-negro: #0d001a;
-            --rosa-fucsia: #ff007f;
-            --rosa-brillo: #ff66b2;
-            --morado-corazon: #9d50bb;
-            --neon-glow: 0 0 20px var(--rosa-fucsia), 0 0 40px var(--rosa-fucsia);
+            --morado-negro: #1a0033;
+            --rosa-fucsia: #ff00ff;
+            --rosa-brillo: #ff66d2;
+            --morado-neon: #bc13fe;
+            --neon-glow: 0 0 10px var(--rosa-fucsia), 0 0 25px var(--rosa-fucsia);
+            --neon-border: 0 0 15px var(--morado-neon), inset 0 0 15px var(--morado-neon);
         }
 
         body, html {
             margin: 0; padding: 0; height: 100%;
-            overflow: hidden; font-family: 'Arial', sans-serif;
-            background-color: var(--morado-negro);
-            /* Marco decorativo de neón */
-            border: 15px solid var(--morado-negro);
+            overflow: hidden; font-family: 'Georgia', serif;
+            background-color: #05000a;
             box-sizing: border-box;
         }
 
-        /* --- MARCO EXTERIOR NEÓN --- */
+        /* --- MARCO EXTERIOR LUMINOSO --- */
         body::before {
             content: "";
             position: fixed;
-            top: 5px; left: 5px; right: 5px; bottom: 5px;
-            border: 3px solid var(--rosa-fucsia);
-            border-radius: 20px;
-            box-shadow: inset var(--neon-glow), var(--neon-glow);
+            top: 10px; left: 10px; right: 10px; bottom: 10px;
+            border: 4px solid var(--rosa-fucsia);
+            border-radius: 30px;
+            box-shadow: var(--neon-border), 0 0 40px rgba(255, 0, 255, 0.2);
             z-index: 100;
             pointer-events: none;
         }
 
-        /* --- COLLAGE MÁS GRANDE --- */
+        /* --- FONDO DE COLLAGE MEJORADO --- */
         .collage-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             display: flex; justify-content: space-around;
-            z-index: 1; opacity: 0.5;
-            filter: brightness(0.7);
+            z-index: 1; opacity: 0.6;
+            filter: contrast(1.1) brightness(0.8);
             pointer-events: none;
         }
 
@@ -51,14 +50,15 @@
         }
 
         .columna-fotos img {
-            width: 320px; /* Fotos más grandes como pediste */
-            margin: 30px 0;
-            border-radius: 25px; 
-            border: 5px solid var(--rosa-fucsia);
+            width: 280px; 
+            margin: 40px 0;
+            border-radius: 20px; 
+            border: 6px solid var(--rosa-fucsia);
             box-shadow: var(--neon-glow);
             object-fit: cover;
-            aspect-ratio: 4 / 5; /* Formato más vertical tipo foto física */
-            transition: transform 0.5s;
+            aspect-ratio: 1 / 1;
+            /* Inclinación aleatoria para efecto collage real */
+            transform: rotate(var(--rotacion, 2deg));
         }
 
         @keyframes caer {
@@ -66,65 +66,65 @@
             to { transform: translateY(0%); }
         }
 
-        /* --- CORAZONES VARIADOS --- */
+        /* --- CORAZONES NEÓN FLOTANTES --- */
         .corazon {
             position: fixed;
             z-index: 5;
             pointer-events: none;
-            animation: flotar 6s linear forwards;
-            filter: drop-shadow(0 0 10px var(--morado-corazon));
+            animation: flotar 7s ease-in forwards;
+            filter: drop-shadow(0 0 8px var(--rosa-fucsia));
+            opacity: 0.8;
         }
 
         @keyframes flotar {
-            0% { transform: translateY(105vh) scale(0.5) rotate(0deg); opacity: 0; }
+            0% { transform: translateY(110vh) scale(0.5); opacity: 0; }
             20% { opacity: 1; }
-            100% { transform: translateY(-15vh) scale(1.5) rotate(360deg); opacity: 0; }
+            100% { transform: translateY(-20vh) scale(1.2) rotate(45deg); opacity: 0; }
         }
 
-        /* --- INTERFAZ --- */
+        /* --- INTERFAZ CENTRAL --- */
         .interfaz {
             position: relative;
             z-index: 110;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
         }
 
         .caja-mensaje {
-            background: rgba(13, 0, 26, 0.8);
-            padding: 60px;
+            background: rgba(10, 0, 20, 0.85);
+            padding: 50px 70px;
             border-radius: 40px;
-            backdrop-filter: blur(15px);
-            border: 2px solid var(--rosa-fucsia);
-            box-shadow: var(--neon-glow);
+            backdrop-filter: blur(10px);
+            border: 3px solid white; /* Borde blanco brillante como la imagen */
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2), var(--neon-glow);
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 40px;
+            gap: 35px;
         }
 
         h2 { 
             color: white; 
-            font-size: 3rem; 
-            text-shadow: 0 0 20px var(--rosa-fucsia);
+            font-size: 2.8rem; 
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
             margin: 0;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         #btnSorpresa {
-            padding: 25px 70px;
-            font-size: 1.8rem;
+            padding: 20px 60px;
+            font-size: 2rem;
             font-weight: bold;
             color: white;
-            background: linear-gradient(45deg, #6a11cb, var(--rosa-fucsia));
+            background: linear-gradient(to right, #d400ff, #ff0080);
             border: none;
-            border-radius: 100px;
+            border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 0 30px rgba(255, 0, 127, 0.8);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 20px var(--rosa-fucsia);
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
         }
 
         /* --- FLASH Y VIDEO --- */
@@ -141,10 +141,9 @@
         }
 
         video { 
-            width: 85%; 
-            max-width: 900px; 
-            border-radius: 30px; 
-            border: 5px solid var(--rosa-fucsia);
+            width: 80%; 
+            border-radius: 25px; 
+            border: 4px solid var(--rosa-fucsia);
             box-shadow: var(--neon-glow);
         }
     </style>
@@ -154,81 +153,7 @@
     <div id="resplandor"></div>
 
     <div class="collage-container">
-        <div class="columna-fotos" style="--duracion: 40s;">
-            <img src="foto1.jpeg"><img src="foto2.jpeg"><img src="foto3.jpeg"><img src="foto4.jpeg"><img src="foto1.jpeg"><img src="foto2.jpeg">
-        </div>
-        <div class="columna-fotos" style="--duracion: 28s; margin-top: 120px;">
-            <img src="foto5.jpeg"><img src="foto6.jpeg"><img src="foto7.jpeg"><img src="foto2.jpeg"><img src="foto5.jpeg"><img src="foto6.jpeg">
-        </div>
-        <div class="columna-fotos" style="--duracion: 50s;">
-            <img src="foto3.jpeg"><img src="foto7.jpeg"><img src="foto4.jpeg"><img src="foto1.jpeg"><img src="foto3.jpeg"><img src="foto7.jpeg">
-        </div>
-    </div>
-
-    <div class="interfaz">
-        <div class="caja-mensaje">
-            <h2 id="frase">¿Quieres ver tu sorpresa?</h2>
-            <button id="btnSorpresa">¿De verdad?</button>
-        </div>
-    </div>
-
-    <div id="pantalla-video">
-        <video id="videoRegalo" controls>
-            <source src="tu-video.mp4" type="video/mp4">
-        </video>
-    </div>
-
-    <script>
-        // Corazones constantes con diferentes iconos y colores
-        const iconos = ['💜', '💖', '✨', '💟'];
-        setInterval(() => {
-            const c = document.createElement('div');
-            c.classList.add('corazon');
-            c.innerHTML = iconos[Math.floor(Math.random() * iconos.length)];
-            c.style.left = Math.random() * 100 + 'vw';
-            c.style.fontSize = Math.random() * (30 - 15) + 15 + 'px';
-            document.body.appendChild(c);
-            setTimeout(() => c.remove(), 6000);
-        }, 350);
-
-        let contador = 0;
-        const boton = document.getElementById('btnSorpresa');
-        const frase = document.getElementById('frase');
-        const resplandor = document.getElementById('resplandor');
-        const pantallaVideo = document.getElementById('pantalla-video');
-        const video = document.getElementById('videoRegalo');
-
-        function latir() {
-            if (contador < 5) {
-                let escalaBase = 1 + (contador * 0.4);
-                let latido = escalaBase * 1.1;
-                boton.style.transform = `scale(${latido})`;
-                setTimeout(() => {
-                    boton.style.transform = `scale(${escalaBase})`;
-                }, 200);
-            }
-        }
-        let bucleLatido = setInterval(latir, 1500);
-
-        boton.addEventListener('click', () => {
-            contador++;
-            clearInterval(bucleLatido);
-            bucleLatido = setInterval(latir, Math.max(1500 - (contador * 300), 300));
-
-            frase.style.transform = `translateY(-${contador * 40}px) scale(${1 + contador * 0.05})`;
-
-            if (contador >= 5) {
-                resplandor.style.opacity = '1';
-                setTimeout(() => {
-                    document.querySelector('.interfaz').style.display = 'none';
-                    pantallaVideo.style.display = 'flex';
-                    setTimeout(() => {
-                        resplandor.style.opacity = '0';
-                        video.play();
-                    }, 400);
-                }, 300);
-            }
-        });
-    </script>
-</body>
-</html>
+        <div class="columna-fotos" style="--duracion: 35s;">
+            <img src="foto1.jpeg" style="--rotacion: -3deg;"><img src="foto2.jpeg" style="--rotacion: 2deg;">
+            <img src="foto3.jpeg" style="--rotacion: -1deg;"><img src="foto4.jpeg" style="--rotacion: 4deg;">
+            <img src="foto1.jpeg" style="--rotacion: -3deg;"><img src="foto2.jpeg" style="--rotacion: 2deg;">
