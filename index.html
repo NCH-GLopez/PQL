@@ -44,11 +44,10 @@
         }
 
         .columna-fotos img {
-            width: 280px; margin: 35px 0;
+            width: 250px; margin: 30px 0;
             border-radius: 20px; border: 5px solid var(--rosa-fucsia);
             box-shadow: var(--neon-glow);
             aspect-ratio: 1/1; object-fit: cover;
-            transform: rotate(var(--rotacion, 0deg));
         }
 
         @keyframes caer {
@@ -56,22 +55,25 @@
             to { transform: translateY(0%); }
         }
 
-        /* --- CONTENEDOR CENTRAL --- */
+        /* --- CONTENEDOR CENTRAL SEGURO --- */
         .interfaz {
             position: relative;
             z-index: 150;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
+            height: 100vh;
+            width: 100vw;
             box-sizing: border-box;
+            padding: 20px;
         }
 
         .caja-mensaje {
             background: rgba(10, 0, 25, 0.95);
-            min-width: 350px;
-            padding: 50px;
+            width: auto;
+            min-width: 320px;
+            max-width: 85vw; /* Evita que se salga por los lados en móvil */
+            padding: 40px;
             border-radius: 40px;
             border: 3px solid white;
             box-shadow: 0 0 40px rgba(255, 0, 255, 0.3);
@@ -81,27 +83,23 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 40px; 
+            gap: 30px; 
             
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            max-width: 90%;
-            max-height: 90vh;
+            text-align: center;
         }
 
         h2 { 
             color: white; 
-            font-size: 2.8rem;
+            font-size: 2.2rem;
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
             margin: 0;
-            text-align: center;
-            z-index: 10;
             flex-shrink: 0;
-            transition: transform 0.3s ease;
         }
 
         #btnSorpresa {
-            padding: 20px 45px;
-            font-size: 1.7rem;
+            padding: 15px 35px;
+            font-size: 1.4rem;
             font-weight: bold;
             color: white;
             background: linear-gradient(45deg, #d400ff, #ff0080);
@@ -109,24 +107,15 @@
             border-radius: 50px;
             cursor: pointer;
             box-shadow: 0 0 20px var(--rosa-fucsia);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.3s ease;
             z-index: 5;
             flex-shrink: 0;
-        }
-
-        /* --- AJUSTES MÓVIL --- */
-        @media (max-width: 600px) {
-            .columna-fotos img { width: 160px; margin: 15px 0; }
-            .caja-mensaje { padding: 40px 25px; gap: 35px; min-width: 290px; }
-            h2 { font-size: 2rem; }
-            #btnSorpresa { padding: 15px 30px; font-size: 1.4rem; }
         }
 
         /* --- CORAZONES --- */
         .corazon {
             position: fixed; z-index: 50; pointer-events: none;
             animation: flotar 6s linear forwards;
-            filter: drop-shadow(0 0 5px var(--rosa-fucsia));
         }
 
         @keyframes flotar {
@@ -135,40 +124,23 @@
             100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
         }
 
-        #resplandor {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: white; z-index: 1000; opacity: 0; pointer-events: none;
-            transition: opacity 0.4s ease;
-        }
-
         #pantalla-video {
             display: none; position: fixed; top: 0; left: 0;
             width: 100%; height: 100%; background: black;
             z-index: 500; justify-content: center; align-items: center;
         }
 
-        video { width: 90%; border-radius: 20px; border: 3px solid var(--rosa-fucsia); }
+        video { width: 90%; max-height: 80vh; border-radius: 15px; border: 2px solid white; }
     </style>
 </head>
 <body>
 
-    <div id="resplandor"></div>
-
     <div class="collage-container">
-        <div class="columna-fotos" style="--duracion: 35s;">
-            <img src="foto1.jpeg" style="--rotacion: -2deg;"><img src="foto2.jpeg" style="--rotacion: 3deg;">
-            <img src="foto3.jpeg" style="--rotacion: -1deg;"><img src="foto4.jpeg" style="--rotacion: 2deg;">
-            <img src="foto1.jpeg"><img src="foto2.jpeg">
+        <div class="columna-fotos" style="--duracion: 30s;">
+            <img src="foto1.jpeg"><img src="foto2.jpeg"><img src="foto3.jpeg"><img src="foto4.jpeg">
         </div>
-        <div class="columna-fotos" style="--duracion: 25s; margin-top: 50px;">
-            <img src="foto5.jpeg" style="--rotacion: 2deg;"><img src="foto6.jpeg" style="--rotacion: -3deg;">
-            <img src="foto7.jpeg" style="--rotacion: 1deg;"><img src="foto2.jpeg" style="--rotacion: -2deg;">
-            <img src="foto5.jpeg"><img src="foto6.jpeg">
-        </div>
-        <div class="columna-fotos" style="--duracion: 45s;">
-            <img src="foto3.jpeg" style="--rotacion: 1deg;"><img src="foto7.jpeg" style="--rotacion: -2deg;">
-            <img src="foto4.jpeg" style="--rotacion: 3deg;"><img src="foto1.jpeg" style="--rotacion: -1deg;">
-            <img src="foto3.jpeg"><img src="foto7.jpeg">
+        <div class="columna-fotos" style="--duracion: 20s;">
+            <img src="foto5.jpeg"><img src="foto6.jpeg"><img src="foto7.jpeg"><img src="foto1.jpeg">
         </div>
     </div>
 
@@ -186,45 +158,40 @@
     </div>
 
     <script>
+        // Lluvia de corazones
         setInterval(() => {
             const c = document.createElement('div');
             c.classList.add('corazon');
             c.innerHTML = ['💜', '💖', '✨'][Math.floor(Math.random()*3)];
             c.style.left = Math.random() * 100 + 'vw';
+            c.style.fontSize = Math.random() * 20 + 20 + 'px';
             document.body.appendChild(c);
             setTimeout(() => c.remove(), 6000);
         }, 500);
 
         let contador = 0;
         const boton = document.getElementById('btnSorpresa');
-        const frase = document.getElementById('frase');
         const caja = document.querySelector('.caja-mensaje');
         const video = document.getElementById('videoRegalo');
 
         boton.addEventListener('click', () => {
             contador++;
             
-            // El botón crece
-            let escalaBtn = 1 + (contador * 0.35); 
-            boton.style.transform = `scale(${escalaBtn})`;
+            // Crecimiento controlado del botón
+            let escala = 1 + (contador * 0.25);
+            boton.style.transform = `scale(${escala})`;
             
-            // El título sube un poco para dar espacio
-            frase.style.transform = `translateY(-${contador * 12}px)`;
-
-            // La caja se expande (Padding y Gap)
-            caja.style.padding = `${50 + (contador * 18)}px`;
-            caja.style.gap = `${40 + (contador * 12)}px`;
+            // La caja crece principalmente en vertical
+            caja.style.padding = `${40 + (contador * 10)}px ${40}px`;
+            caja.style.gap = `${30 + (contador * 5)}px`;
 
             if (contador >= 5) {
-                document.getElementById('resplandor').style.opacity = '1';
+                document.querySelector('.interfaz').style.opacity = '0';
                 setTimeout(() => {
                     document.querySelector('.interfaz').style.display = 'none';
                     document.getElementById('pantalla-video').style.display = 'flex';
-                    setTimeout(() => {
-                        document.getElementById('resplandor').style.opacity = '0';
-                        video.play();
-                    }, 400);
-                }, 300);
+                    video.play();
+                }, 500);
             }
         });
     </script>
