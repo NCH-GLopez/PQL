@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3 años..ya? 💜</title>
+    <title>3 años contigo ❤️</title>
     <style>
         :root {
             --rosa-fucsia: #ff00ff;
@@ -56,46 +56,52 @@
             to { transform: translateY(0%); }
         }
 
-        /* --- CONTENEDOR CENTRAL SEGURO --- */
+        /* --- CONTENEDOR CENTRAL --- */
         .interfaz {
             position: relative;
             z-index: 150;
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
             padding: 20px;
+            box-sizing: border-box;
         }
 
         .caja-mensaje {
-            background: rgba(10, 0, 25, 0.9);
-            min-width: 420px;
-            min-height: 320px;
-            padding: 60px;
+            background: rgba(10, 0, 25, 0.95);
+            min-width: 350px;
+            padding: 50px;
             border-radius: 40px;
             border: 3px solid white;
             box-shadow: 0 0 40px rgba(255, 0, 255, 0.3);
             backdrop-filter: blur(10px);
-            display: inline-flex;
+            
+            display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 50px; 
-            transition: all 0.4s ease;
+            gap: 40px; 
+            
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-width: 90%;
+            max-height: 90vh;
         }
 
         h2 { 
             color: white; 
-            font-size: 3rem; /* Un poco más grande para resaltar el nuevo título */
+            font-size: 2.8rem;
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
             margin: 0;
             text-align: center;
             z-index: 10;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
         }
 
         #btnSorpresa {
-            padding: 20px 50px;
-            font-size: 1.8rem;
+            padding: 20px 45px;
+            font-size: 1.7rem;
             font-weight: bold;
             color: white;
             background: linear-gradient(45deg, #d400ff, #ff0080);
@@ -104,8 +110,16 @@
             cursor: pointer;
             box-shadow: 0 0 20px var(--rosa-fucsia);
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            transform-origin: center center; 
             z-index: 5;
+            flex-shrink: 0;
+        }
+
+        /* --- AJUSTES MÓVIL --- */
+        @media (max-width: 600px) {
+            .columna-fotos img { width: 160px; margin: 15px 0; }
+            .caja-mensaje { padding: 40px 25px; gap: 35px; min-width: 290px; }
+            h2 { font-size: 2rem; }
+            #btnSorpresa { padding: 15px 30px; font-size: 1.4rem; }
         }
 
         /* --- CORAZONES --- */
@@ -121,7 +135,6 @@
             100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
         }
 
-        /* --- VIDEO Y FLASH --- */
         #resplandor {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: white; z-index: 1000; opacity: 0; pointer-events: none;
@@ -134,7 +147,7 @@
             z-index: 500; justify-content: center; align-items: center;
         }
 
-        video { width: 85%; border-radius: 20px; border: 4px solid var(--rosa-fucsia); }
+        video { width: 90%; border-radius: 20px; border: 3px solid var(--rosa-fucsia); }
     </style>
 </head>
 <body>
@@ -161,13 +174,13 @@
 
     <div class="interfaz">
         <div class="caja-mensaje">
-            <h2 id="frase">3 años..ya?💜</h2>
+            <h2 id="frase">3 años contigo ❤️</h2>
             <button id="btnSorpresa">¿De verdad?</button>
         </div>
     </div>
 
     <div id="pantalla-video">
-        <video id="videoRegalo" controls>
+        <video id="videoRegalo" controls playsinline>
             <source src="tu-video.mp4" type="video/mp4">
         </video>
     </div>
@@ -184,14 +197,23 @@
 
         let contador = 0;
         const boton = document.getElementById('btnSorpresa');
+        const frase = document.getElementById('frase');
         const caja = document.querySelector('.caja-mensaje');
         const video = document.getElementById('videoRegalo');
 
         boton.addEventListener('click', () => {
             contador++;
-            let escala = 1 + (contador * 0.4);
-            boton.style.transform = `scale(${escala})`;
-            caja.style.padding = `${60 + (contador * 15)}px`;
+            
+            // El botón crece
+            let escalaBtn = 1 + (contador * 0.35); 
+            boton.style.transform = `scale(${escalaBtn})`;
+            
+            // El título sube un poco para dar espacio
+            frase.style.transform = `translateY(-${contador * 12}px)`;
+
+            // La caja se expande (Padding y Gap)
+            caja.style.padding = `${50 + (contador * 18)}px`;
+            caja.style.gap = `${40 + (contador * 12)}px`;
 
             if (contador >= 5) {
                 document.getElementById('resplandor').style.opacity = '1';
