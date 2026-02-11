@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3 años contigo 💜</title>
+    <title>3 años contigo ❤️</title>
     <style>
         :root {
             --rosa-fucsia: #ff00ff;
@@ -72,7 +72,7 @@
             background: rgba(10, 0, 25, 0.95);
             width: auto;
             min-width: 280px;
-            max-width: 85vw; /* BLOQUEO LATERAL PARA MÓVIL */
+            max-width: 85vw; 
             padding: 40px;
             border-radius: 40px;
             border: 3px solid white;
@@ -96,6 +96,7 @@
             flex-shrink: 0;
         }
 
+        /* --- BOTÓN CON LATIDO --- */
         #btnSorpresa {
             padding: 15px 35px;
             font-size: 1.3rem;
@@ -106,10 +107,18 @@
             border-radius: 50px;
             cursor: pointer;
             box-shadow: 0 0 20px var(--rosa-fucsia);
-            transition: transform 0.3s ease;
             z-index: 5;
             flex-shrink: 0;
             white-space: nowrap;
+            /* Animación de latido constante */
+            animation: latido 1.5s infinite ease-in-out;
+            transition: all 0.3s ease;
+        }
+
+        @keyframes latido {
+            0% { transform: scale(var(--escala, 1)); }
+            50% { transform: scale(calc(var(--escala, 1) * 1.1)); }
+            100% { transform: scale(var(--escala, 1)); }
         }
 
         /* --- CORAZONES --- */
@@ -186,22 +195,19 @@
         boton.addEventListener('click', () => {
             contador++;
             
-            // Crecimiento del botón
-            let escala = 1 + (contador * 0.25);
-            boton.style.transform = `scale(${escala})`;
+            // Calculamos la nueva escala base
+            let nuevaEscala = 1 + (contador * 0.25);
+            // La pasamos a la variable CSS para que la animación de latido la use
+            boton.style.setProperty('--escala', nuevaEscala);
             
-            // Crecimiento de caja seguro para móvil
             caja.style.padding = `${40 + (contador * 8)}px ${30}px`;
             caja.style.gap = `${30 + (contador * 4)}px`;
 
             if (contador >= 5) {
-                // ACTIVAR RESPLANDOR
                 resplandor.style.opacity = '1';
-                
                 setTimeout(() => {
                     document.querySelector('.interfaz').style.display = 'none';
                     document.getElementById('pantalla-video').style.display = 'flex';
-                    
                     setTimeout(() => {
                         resplandor.style.opacity = '0';
                         video.play();
